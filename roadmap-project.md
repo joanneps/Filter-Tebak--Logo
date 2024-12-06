@@ -71,13 +71,10 @@ Proyek ini bertujuan untuk bikin filter "Tebak Logo" yang bisa mendeteksi arah w
 
 ## Pembagian Tugas
 
-Kita bakal bagi tugasnya biar lebih jelas, siapa yang kerjain apa:
-
 ### Anggota Tim:
-- **[Nama Anggota 1]**: Fokus di deteksi wajah dan arah kepala.
-- **[Nama Anggota 2]**: Fokus di desain tampilan dan penempatan logo.
-- **[Nama Anggota 3]**: Fokus di timer, skor, dan penampilan hasil akhir.
-- **[Nama Anggota 4]**: Fokus di testing dan debugging.
+- **[Nama Anggota 1]**:
+- **[Nama Anggota 2]**:
+- **[Nama Anggota 3]**:
 
 ---
 
@@ -93,4 +90,4 @@ Kita bakal bagi tugasnya biar lebih jelas, siapa yang kerjain apa:
 
 ---
 
-Dengan roadmap ini, agar mempermudah pengerjaan proyek ini.
+Dengan adanya roadmap ini, diharapkan agar mempermudah pengerjaan proyek secara terstruktur.
