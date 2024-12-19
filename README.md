@@ -1,5 +1,5 @@
 Anggota Kelompok
-NAMA                             | NIM             | USERNAME
+NAMA                             | NIM             | ID Github
 :------------------------------: | :-------------: | :---------------:
 [Joanne Polama Putri Sembiring]  | [121140128]     | joanneps
 [Muhammad Taqy Abdullah]         | [121140166]     | 166Taqy
