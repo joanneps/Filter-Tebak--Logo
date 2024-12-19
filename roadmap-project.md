@@ -72,9 +72,9 @@ Proyek ini bertujuan untuk bikin filter "Tebak Logo" yang bisa mendeteksi arah w
 ## Pembagian Tugas
 
 ### Anggota Tim:
-- **[Nama Anggota 1]**:
-- **[Nama Anggota 2]**:
-- **[Nama Anggota 3]**:
+- **[Joanne Polama Putri Sembiring]**:
+- **[Muhammad Taqy Abdullah]**:
+- **[Dea Lisriani Safitri Waruwu]**:
 
 ---
 
