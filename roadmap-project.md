@@ -1,36 +1,36 @@
 # Roadmap Proyek Filter Tebak Logo
 
-Proyek ini bertujuan untuk bikin filter "Tebak Logo" yang bisa mendeteksi arah wajah (kiri/kanan) untuk memilih logo yang benar. Kita juga bakal nge-track skor berdasarkan jawaban dan waktu yang dipakai. Di bawah ini adalah langkah-langkah yang kita perlu kerjakan bersama.
+Proyek ini bertujuan untuk membuat filter "Tebak Logo" yang bisa mendeteksi arah wajah (kiri/kanan) untuk memilih logo yang benar. Kita juga akan nge-track skor berdasarkan jawaban dan waktu yang dipakai. Di bawah ini adalah langkah-langkah yang perlu dikerjakan bersama.
 
 ---
 
 ## 1. Desain Tampilan dan Logo
 
 - **Tugas**:
-  - Siapin gambar logo yang bakal tampil di layar.
-  - Tentuin posisi logo di kiri dan kanan layar.
-  - Ukuran logo harus pas, nggak terlalu besar atau kecil (misalnya 200x200 px biar jelas).
-  - Tempatin logo di posisi kiri dan kanan, sesuai dengan arah wajah yang terdeteksi.
+  - Siapkan gambar logo yang akan tampil di layar.
+  - Tentukan posisi logo di kiri dan kanan layar.
+  - Ukuran logo harus pas, tidak terlalu besar atau kecil (misalnya 200x200 px biar jelas).
+  - Tempatkan logo di posisi kiri dan kanan, sesuai dengan arah wajah yang terdeteksi.
 
 ---
 
 ## 2. Pengaturan Waktu Menebak
 
 - **Tugas**:
-  - Tentuin batas waktu buat jawab (misalnya 10 detik).
-  - Gunakan timer buat nampilinn waktu yang tersisa di layar.
-  - Kalo waktu habis, tampilkan hasilnya (jawaban benar atau salah).
+  - Tentukan batas waktu untuk menebak logo (misalnya 10 detik).
+  - Gunakan timer untuk menampilkan waktu yang tersisa di layar.
+  - Jika waktu habis, tampilkan hasilnya (jawaban benar atau salah).
 
 ---
 
 ## 3. Deteksi Wajah dan Arah Kepala
 
 - **Tugas**:
-  - Gunakan `dlib` buat deteksi wajah, ambil koordinat wajah (x, y, w, h).
-  - Tentuin arah wajah: 
-    - Kalo wajahnya ke kiri, tampilkan logo kiri.
-    - Kalo wajahnya ke kanan, tampilkan logo kanan.
-  - Setelah itu, tentuin apakah jawabannya benar atau salah, sesuai logo yang muncul.
+  - Gunakan `dlib` untuk deteksi wajah, ambil koordinat wajah (x, y, w, h).
+  - Tentukan arah wajah: 
+    - Jika wajahnya ke kiri, tampilkan logo kiri.
+    - Jika wajahnya ke kanan, tampilkan logo kanan.
+  - Setelah itu, tentukan apakah jawabannya benar atau salah, sesuaikan logo yang muncul.
 
 ---
 
@@ -38,7 +38,7 @@ Proyek ini bertujuan untuk bikin filter "Tebak Logo" yang bisa mendeteksi arah w
 
 - **Tugas**:
   - Hitung skor berdasarkan jawaban yang benar.
-  - Tampilinn skor setelah tiap ronde.
+  - Tampilkan skor setelah tiap ronde.
   - Setelah beberapa ronde, tampilkan total skor akhir.
 
 ---
@@ -46,9 +46,9 @@ Proyek ini bertujuan untuk bikin filter "Tebak Logo" yang bisa mendeteksi arah w
 ## 5. Pengujian dan Debugging
 
 - **Tugas**:
-  - Tes deteksi wajah, pastiin arah wajah terdeteksi dengan benar.
-  - Uji coba tampilan logo, pastiin logo muncul dengan jelas di posisi yang tepat.
-  - Tes juga di beberapa perangkat dan kondisi, biar deteksi wajahnya tetep akurat.
+  - Tes deteksi wajah, pastikan arah wajah terdeteksi dengan benar.
+  - Uji coba tampilan logo, pastikan logo muncul dengan jelas di posisi yang tepat.
+  - Tes juga di beberapa perangkat dan kondisi, agar deteksi wajahnya tetep akurat.
 
 ---
 
@@ -56,7 +56,7 @@ Proyek ini bertujuan untuk bikin filter "Tebak Logo" yang bisa mendeteksi arah w
 
 - **Tugas**:
   - **Tingkat Kesulitan**: Bisa tambah opsi tingkat kesulitan, misalnya lebih banyak logo atau logo yang lebih mirip.
-  - **Suara**: Tambahin efek suara pas jawabannya benar atau salah (biar lebih seru).
+  - **Suara**: Tambahin efek suara ketika jawabannya benar atau salah (agar lebih seru).
   - **Animasi**: Bisa tambahin animasi atau efek visual, misalnya pas wajah bergerak atau timer hampir habis.
 
 ---
@@ -81,11 +81,11 @@ Proyek ini bertujuan untuk bikin filter "Tebak Logo" yang bisa mendeteksi arah w
 ## Langkah-Langkah Proyek:
 
 1. **Siapkan Logo**: Bikin gambar logo dan tentuin tata letak di layar.
-2. **Timer**: Tentuin berapa lama waktu yang diberikan buat jawab.
-3. **Deteksi Arah Wajah**: Gunakan `dlib` buat deteksi wajah, tentuin arah wajah (kiri/kanan).
-4. **Penilaian dan Skor**: Tentuin jawaban benar atau salah dan hitung skor.
+2. **Timer**: Tentukan berapa lama waktu yang diberikan buat jawab.
+3. **Deteksi Arah Wajah**: Gunakan `dlib` buat deteksi wajah, tentukan arah wajah (kiri/kanan).
+4. **Penilaian dan Skor**: Tentukan jawaban benar atau salah dan hitung skor.
 5. **Testing**: Tes deteksi wajah, logo, dan pastikan semua berjalan lancar.
-6. **Fitur Opsional**: Tambahin tingkat kesulitan, suara, dan animasi.
+6. **Fitur Opsional**: Tambahkan tingkat kesulitan, suara, dan animasi.
 7. **Optimasi**: Pastikan filter jalan mulus tanpa gangguan.
 
 ---
