@@ -24,8 +24,13 @@ if not cap.isOpened():
     exit()
 
 # Load gambar
-img_benar = cv2.imread("data/benar.jpg")
-img_salah = cv2.imread("data/salah.jpg")
+img_benar = cv2.imread("assets/benar1.jpg")
+img_salah = cv2.imread("assets/salah1.jpg")
+
+# Validasi gambar berhasil di-load
+if img_benar is None or img_salah is None:
+    print("Gambar tidak ditemukan. Periksa kembali path file.")
+    exit()
 
 # Resize gambar agar sesuai dengan layar
 img_benar = cv2.resize(img_benar, (150, 150))
