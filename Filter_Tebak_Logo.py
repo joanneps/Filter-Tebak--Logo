@@ -8,7 +8,10 @@ detector = dlib.get_frontal_face_detector()
 def show_text(frame, text, position, font_scale=1, color=(0, 255, 0)):
     font = cv2.FONT_HERSHEY_SIMPLEX
     thickness = 2
-    cv2.putText(frame, text, position, font, font_scale, color, thickness)
+    text_size = cv2.getTextSize(text, font, font_scale, thickness)[0]
+    text_x = max(0, position[0])
+    text_y = min(frame.shape[0] - text_size[1], position[1])
+    cv2.putText(frame, text, (text_x, text_y), font, font_scale, color, thickness)
 
 # Fungsi untuk menambahkan gambar ke frame
 def overlay_image(frame, image, position):
@@ -41,6 +44,9 @@ while True:
     if not ret:
         print("Tidak dapat membaca frame.")
         break
+
+    # Balikkan frame agar tidak mirror
+    frame = cv2.flip(frame, 1)
     
     # Konversi frame ke grayscale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
