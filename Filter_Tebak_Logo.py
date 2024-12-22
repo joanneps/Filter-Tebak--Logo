@@ -9,14 +9,16 @@ def show_text(frame, text, position, font_scale=1, color=(0, 255, 0)):
     font = cv2.FONT_HERSHEY_SIMPLEX
     thickness = 2
     text_size = cv2.getTextSize(text, font, font_scale, thickness)[0]
-    text_x = max(0, position[0])
-    text_y = min(frame.shape[0] - text_size[1], position[1])
+    text_x = max(0, min(position[0], frame.shape[1] - text_size[0]))
+    text_y = max(text_size[1], min(position[1], frame.shape[0]))
     cv2.putText(frame, text, (text_x, text_y), font, font_scale, color, thickness)
 
 # Fungsi untuk menambahkan gambar ke frame
 def overlay_image(frame, image, position):
     x, y = position
     h, w, _ = image.shape
+    if y + h > frame.shape[0] or x + w > frame.shape[1]:
+        return  # Jangan menggambar jika posisi keluar dari frame
     frame[y:y+h, x:x+w] = cv2.addWeighted(frame[y:y+h, x:x+w], 0.5, image, 0.5, 0)
 
 # Buka kamera
@@ -81,8 +83,9 @@ while True:
         else:
             direction = "Tengah"
         
-        # Tampilkan teks di layar
-        show_text(frame, f"Arah: {direction}", (50, 50), font_scale=1, color=(255, 0, 0))
+        # Tampilkan teks di tengah layar
+        text_position = (frame_width // 2, frame.shape[0] // 2)
+        show_text(frame, f"Arah: {direction}", text_position, font_scale=1.5, color=(255, 0, 0))
     
     # Tampilkan hasil frame dengan tulisan
     cv2.imshow("Deteksi Arah Wajah", frame)
