@@ -9,4 +9,13 @@ NAMA                             | NIM             | ID Github
 Judul: Filter Tebak Logo
 
 Deskripsi:
-Filter Tebak Logo adalah program sederhana yang dibuat menggunakan Python. Program ini digunakan untuk memilih logo yang benar antara dua opsi. Dalam filter ini pengguna akan menebak logo berdasarkan gambar yang ditampilkan. Pengguna juga diberi batas waktu untuk menebak logo. Filter akan memberikan notifikasi atau tanda apakah tebakannya benar atau salah dan juga menampilkan skor di akhir permainan.
+Filter Tebak Logo adalah program sederhana berbasis kamera memanfaatkan teknologi deteksi wa-
+jah untuk memprediksi arah wajah pengguna (kiri atau kanan) sebagai input jawaban yang dibuat
+menggunakan Python. Program ini dirancang untuk memilih logo yang benar antara dua opsi. Dalam
+filter ini pengguna akan menebak logo berdasarkan gambar yang ditampilkan di atas kepala pengguna.
+Filter ini akan mendeteksi arah gerakan kepala pengguna apakah ke kiri atau ke kanan. Pengguna
+diberi batas waktu untuk menebak logo, jika waktu habis sebelum permainan selesai maka skor akan
+langsung ditampilkan. Filter akan memberikan notifikasi atau tanda apakah tebakannya benar atau
+salah dan akan menampilkan skor di akhir permainan. Program ini dibuat untuk menghibur sekaligus
+memberikan pengalaman unik kepada pengguna dengan melibatkan interaksi langsung melalui gerakan
+wajah. Teknologi utama yang digunakan dalam progam ini adalah OpenCV dan dlib
