@@ -1,5 +1,6 @@
 import cv2
 import dlib
+import time
 import random
 
 # Inisialisasi detektor wajah
@@ -10,8 +11,10 @@ def show_text(frame, text, position, font_scale=1, color=(0, 255, 0)):
     font = cv2.FONT_HERSHEY_SIMPLEX
     thickness = 2
     text_size = cv2.getTextSize(text, font, font_scale, thickness)[0]
-    text_x = max(0, min(position[0], frame.shape[1] - text_size[0]))
-    text_y = max(text_size[1], min(position[1], frame.shape[0]))
+    text_x = max(0, position[0] - text_size[0] // 2)
+    text_y = position[1] + text_size[1] // 2
+    if text_x + text_size[0] > frame.shape[1]:
+        text_x = frame.shape[1] - text_size[0]
     cv2.putText(frame, text, (text_x, text_y), font, font_scale, color, thickness)
 
 # Fungsi untuk menambahkan gambar ke frame
@@ -22,32 +25,54 @@ def overlay_image(frame, image, position):
         return  # Jangan menggambar jika posisi keluar dari frame
     frame[y:y+h, x:x+w] = cv2.addWeighted(frame[y:y+h, x:x+w], 0.5, image, 0.5, 0)
 
+# Fungsi untuk menampilkan jeda sebelum pertanyaan berikutnya
+def pause_with_message(frame, message, duration):
+    start_time = time.time()
+    while time.time() - start_time < duration:
+        frame_copy = frame.copy()
+        show_text(frame_copy, message, (frame_copy.shape[1] // 2, frame_copy.shape[0] // 2), font_scale=1.5, color=(0, 255, 255))
+        cv2.imshow("Tebak Logo", frame_copy)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
 # Buka kamera
 cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
 if not cap.isOpened():
     print("Tidak dapat mengakses kamera.")
     exit()
 
-# Load daftar gambar
+# Load daftar gambar benar dan salah
 logo_pairs = [
-    (cv2.imread("assets/benar1.jpg"), cv2.imread("assets/salah1.jpg")),
-    (cv2.imread("assets/benar2.jpg"), cv2.imread("assets/salah2.jpg")),
-    (cv2.imread("assets/benar3.jpg"), cv2.imread("assets/salah3.jpg"))
+    ("assets/filabenar.JPG", "assets/filasalah.JPG"),
+    ("assets/instagrambenar.JPG", "assets/instagramsalah.JPG"),
+    ("assets/kfcbenar.JPG", "assets/kfcsalah.JPG"),
+    ("assets/mercedesbenar.JPG", "assets/mercedessalah.JPG"),
+    ("assets/oreobenar.JPG", "assets/oreosalah.JPG")
 ]
 
-# Validasi gambar
-for i, (benar, salah) in enumerate(logo_pairs):
+# Validasi dan resize gambar
+for i, (benar_path, salah_path) in enumerate(logo_pairs):
+    benar = cv2.imread(benar_path)
+    salah = cv2.imread(salah_path)
     if benar is None or salah is None:
-        print(f"Gambar pada pasangan {i+1} tidak ditemukan.")
+        print(f"Gambar pada pasangan {i+1} tidak ditemukan: {benar_path}, {salah_path}")
         exit()
+    logo_pairs[i] = (cv2.resize(benar, (150, 150)), cv2.resize(salah, (150, 150)))
 
-# Resize gambar agar sesuai dengan layar
-logo_pairs = [(cv2.resize(benar, (150, 150)), cv2.resize(salah, (150, 150))) for benar, salah in logo_pairs]
+# Variabel permainan
+score = 0
+start_time = time.time()
+game_duration = 30  # Batas waktu dalam detik
 
-# Pilih pasangan gambar awal
-current_pair = random.choice(logo_pairs)
-current_answer = "Kiri" if random.choice([True, False]) else "Kanan"
+# Indeks pasangan logo yang belum digunakan
+unused_indices = list(range(len(logo_pairs)))
+
+# Permainan dimulai
+current_pair = None
+current_answer = None
 
 while True:
     ret, frame = cap.read()
@@ -57,12 +82,24 @@ while True:
 
     # Balikkan frame agar tidak mirror
     frame = cv2.flip(frame, 1)
-    
+
     # Konversi frame ke grayscale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    
+
     # Deteksi wajah
     faces = detector(gray)
+
+    # Pilih pasangan baru jika tidak ada pasangan aktif
+    if current_pair is None:
+        if unused_indices:  # Jika masih ada gambar yang tersisa
+            index = random.choice(unused_indices)
+            unused_indices.remove(index)
+            current_pair = logo_pairs[index]
+            current_answer = "Kiri" if random.choice([True, False]) else "Kanan"
+        else:
+            # Jika semua gambar habis
+            pause_with_message(frame, f"Skor Akhir Kamu: {score}", 5)
+            break
 
     # Tentukan posisi gambar berdasarkan jawaban
     if current_answer == "Kiri":
@@ -77,20 +114,15 @@ while True:
     overlay_image(frame, current_pair[1], salah_pos)
 
     # Tampilkan jawaban yang diminta
-    show_text(frame, f"Tebak arah: {current_answer}", (frame.shape[1] // 2, 30), font_scale=1, color=(0, 255, 255))
+    show_text(frame, f"Tebak logo!", (frame.shape[1] // 2, 30), font_scale=1, color=(0, 255, 255))
 
     # Cek jika ada wajah yang terdeteksi
     for face in faces:
-        # Dapatkan koordinat wajah
         x, y, w, h = face.left(), face.top(), face.width(), face.height()
-
-        # Tentukan posisi tengah wajah (x + w // 2)
         face_center = x + w // 2
-
-        # Tentukan lebar frame
         frame_width = frame.shape[1]
 
-        # Tentukan apakah wajah mengarah ke kiri atau kanan
+        # Tentukan arah wajah
         if face_center < frame_width // 3:
             direction = "Kiri"
         elif face_center > frame_width * 2 // 3:
@@ -98,24 +130,32 @@ while True:
         else:
             direction = "Tengah"
 
-        # Tampilkan teks di tengah layar
-        text_position = (frame_width // 2, frame.shape[0] // 2)
-        show_text(frame, f"Posisi: {direction}", text_position, font_scale=1.5, color=(255, 0, 0))
+        show_text(frame, f"Posisi: {direction}", (frame.shape[1] // 2, frame.shape[0] - 50), font_scale=1, color=(255, 0, 0))
 
-        # Logika untuk memeriksa jawaban
         if direction in ["Kiri", "Kanan"]:
             if direction == current_answer:
-                show_text(frame, "Benar!", text_position, font_scale=1.5, color=(0, 255, 0))
-                current_pair = random.choice(logo_pairs)
-                current_answer = "Kiri" if random.choice([True, False]) else "Kanan"
+                score += 1
+                pause_with_message(frame, "Benar! kembali ke tengah.", 2)
             else:
-                show_text(frame, "Salah!", text_position, font_scale=1.5, color=(0, 0, 255))
-                current_pair = random.choice(logo_pairs)
-                current_answer = "Kiri" if random.choice([True, False]) else "Kanan"
+                pause_with_message(frame, "Salah! kembali ke tengah.", 2)
+            current_pair = None  # Hapus pasangan aktif
 
-    # Tampilkan hasil frame dengan tulisan
-    cv2.imshow("Tebak Arah Logo", frame)
-    
+    # Hitung waktu tersisa
+    elapsed_time = time.time() - start_time
+    remaining_time = max(0, game_duration - int(elapsed_time))
+    show_text(frame, f"Waktu: {remaining_time}s", (frame.shape[1] - 100, 30), font_scale=1, color=(255, 255, 255))
+
+    # Tampilkan skor
+    show_text(frame, f"Skor: {score}", (100, 30), font_scale=1, color=(255, 255, 255))
+
+    # Tampilkan hasil frame
+    cv2.imshow("Tebak Logo", frame)
+
+    # Akhiri jika waktu habis
+    if remaining_time == 0:
+        pause_with_message(frame, f"Skor Akhir Kamu: {score}", 5)
+        break
+
     # Tekan 'q' untuk keluar
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
@@ -123,3 +163,5 @@ while True:
 # Lepaskan kamera dan tutup jendela
 cap.release()
 cv2.destroyAllWindows()
+
+print(f"Skor Akhir Kamu: {score}")
