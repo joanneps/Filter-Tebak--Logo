@@ -1,5 +1,6 @@
 import cv2
 import dlib
+import random
 
 # Inisialisasi detektor wajah
 detector = dlib.get_frontal_face_detector()
@@ -28,18 +29,25 @@ if not cap.isOpened():
     print("Tidak dapat mengakses kamera.")
     exit()
 
-# Load gambar
-img_benar = cv2.imread("assets/benar1.jpg")
-img_salah = cv2.imread("assets/salah1.jpg")
+# Load daftar gambar
+logo_pairs = [
+    (cv2.imread("assets/benar1.jpg"), cv2.imread("assets/salah1.jpg")),
+    (cv2.imread("assets/benar2.jpg"), cv2.imread("assets/salah2.jpg")),
+    (cv2.imread("assets/benar3.jpg"), cv2.imread("assets/salah3.jpg"))
+]
 
-# Validasi gambar berhasil di-load
-if img_benar is None or img_salah is None:
-    print("Gambar tidak ditemukan. Periksa kembali path file.")
-    exit()
+# Validasi gambar
+for i, (benar, salah) in enumerate(logo_pairs):
+    if benar is None or salah is None:
+        print(f"Gambar pada pasangan {i+1} tidak ditemukan.")
+        exit()
 
 # Resize gambar agar sesuai dengan layar
-img_benar = cv2.resize(img_benar, (150, 150))
-img_salah = cv2.resize(img_salah, (150, 150))
+logo_pairs = [(cv2.resize(benar, (150, 150)), cv2.resize(salah, (150, 150))) for benar, salah in logo_pairs]
+
+# Pilih pasangan gambar awal
+current_pair = random.choice(logo_pairs)
+current_answer = "Kiri" if random.choice([True, False]) else "Kanan"
 
 while True:
     ret, frame = cap.read()
@@ -56,14 +64,21 @@ while True:
     # Deteksi wajah
     faces = detector(gray)
 
-    # Koordinat gambar benar dan salah
-    benar_pos = (50, 50)
-    salah_pos = (frame.shape[1] - 200, 50)
-    
+    # Tentukan posisi gambar berdasarkan jawaban
+    if current_answer == "Kiri":
+        benar_pos = (50, 50)
+        salah_pos = (frame.shape[1] - 200, 50)
+    else:
+        benar_pos = (frame.shape[1] - 200, 50)
+        salah_pos = (50, 50)
+
     # Tambahkan gambar ke frame
-    overlay_image(frame, img_benar, benar_pos)
-    overlay_image(frame, img_salah, salah_pos)
-    
+    overlay_image(frame, current_pair[0], benar_pos)
+    overlay_image(frame, current_pair[1], salah_pos)
+
+    # Tampilkan jawaban yang diminta
+    show_text(frame, f"Tebak arah: {current_answer}", (frame.shape[1] // 2, 30), font_scale=1, color=(0, 255, 255))
+
     # Cek jika ada wajah yang terdeteksi
     for face in faces:
         # Dapatkan koordinat wajah
@@ -71,10 +86,10 @@ while True:
 
         # Tentukan posisi tengah wajah (x + w // 2)
         face_center = x + w // 2
-        
+
         # Tentukan lebar frame
         frame_width = frame.shape[1]
-        
+
         # Tentukan apakah wajah mengarah ke kiri atau kanan
         if face_center < frame_width // 3:
             direction = "Kiri"
@@ -82,13 +97,24 @@ while True:
             direction = "Kanan"
         else:
             direction = "Tengah"
-        
+
         # Tampilkan teks di tengah layar
         text_position = (frame_width // 2, frame.shape[0] // 2)
-        show_text(frame, f"Arah: {direction}", text_position, font_scale=1.5, color=(255, 0, 0))
-    
+        show_text(frame, f"Posisi: {direction}", text_position, font_scale=1.5, color=(255, 0, 0))
+
+        # Logika untuk memeriksa jawaban
+        if direction in ["Kiri", "Kanan"]:
+            if direction == current_answer:
+                show_text(frame, "Benar!", text_position, font_scale=1.5, color=(0, 255, 0))
+                current_pair = random.choice(logo_pairs)
+                current_answer = "Kiri" if random.choice([True, False]) else "Kanan"
+            else:
+                show_text(frame, "Salah!", text_position, font_scale=1.5, color=(0, 0, 255))
+                current_pair = random.choice(logo_pairs)
+                current_answer = "Kiri" if random.choice([True, False]) else "Kanan"
+
     # Tampilkan hasil frame dengan tulisan
-    cv2.imshow("Deteksi Arah Wajah", frame)
+    cv2.imshow("Tebak Arah Logo", frame)
     
     # Tekan 'q' untuk keluar
     if cv2.waitKey(1) & 0xFF == ord('q'):
