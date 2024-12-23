@@ -24,7 +24,7 @@ wajah. Teknologi utama yang digunakan dalam progam ini adalah OpenCV dan dlib
 Logbook
 MINGGU KE-                         | KEGIATAN            
 :------------------------------:   | :-------------: 
-Minggu ke-1 (24-30 November 2024)  | Mencari berbagai referensi filter      
+Minggu ke-1 (24-30 November 2024)  | Mencari berbagai referensi filter di TikTok    
 Minggu ke-2 (1-7 Desember 2024)    | Diskusi terkait judul final project + mengajukan judul (acc)     
 Minggu ke-3 (8-14 Desember 2024)   | Mengerjakan code program + mencari 'assets' yang diperlukan untuk filter
 Minggu ke-4 (15-21 Desember 2024)  | Mengerjakan code program + mencicil laporan
