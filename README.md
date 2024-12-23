@@ -19,3 +19,13 @@ langsung ditampilkan. Filter akan memberikan notifikasi atau tanda apakah tebaka
 salah dan akan menampilkan skor di akhir permainan. Program ini dibuat untuk menghibur sekaligus
 memberikan pengalaman unik kepada pengguna dengan melibatkan interaksi langsung melalui gerakan
 wajah. Teknologi utama yang digunakan dalam progam ini adalah OpenCV dan dlib
+
+
+Logbook
+MINGGU KE-                         | KEGIATAN            
+:------------------------------:   | :-------------: 
+Minggu ke-1 (24-30 November 2024)  | Mencari berbagai referensi filter      
+Minggu ke-2 (1-7 Desember 2024)    | Diskusi terkait judul final project + mengajukan judul (acc)     
+Minggu ke-3 (8-14 Desember 2024)   | Mengerjakan code program + mencari 'assets' yang diperlukan untuk filter
+Minggu ke-4 (15-21 Desember 2024)  | Mengerjakan code program + mencicil laporan
+Minggu ke-5 (22-24 Desember 2024)  | Melakukan cross ceck program dan laporan + submit final project ke gform pengumpulan
