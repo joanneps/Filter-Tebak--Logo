@@ -22,7 +22,7 @@ wajah. Teknologi utama yang digunakan dalam progam ini adalah OpenCV dan dlib
 
 ## Instruksi Instalasi:
 1. Pastikan library berikut sudah terinstall di pyhton anda :
-   - OpenCV (pip install opencv-python dlib)
+   - OpenCV (`pip install opencv-python dlib`)
 2. Siapkan gambar logo yang akan digunakan dalam filter. Buat folder assets di dalam direktori lalu tambahkan gambar logo dengan nama file berikut:
      - filabenar.JPG
      - filasalah.JPG
@@ -35,7 +35,7 @@ wajah. Teknologi utama yang digunakan dalam progam ini adalah OpenCV dan dlib
      - oreobenar.JPG
      - oreosalah.JPG
 3. Jalankan script dengan perintah berikut:
-   python script.py
+   `python script.py`
 
 ## Cara Bermain
 1. Saat permainan dimulai, dua logo akan muncul di layar (satu benar satu salah) pada posisi atas kiri kanan
