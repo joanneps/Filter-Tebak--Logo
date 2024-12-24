@@ -1,3 +1,5 @@
+# Filter Tebak Logo
+
 Anggota Kelompok
 NAMA                             | NIM             | ID Github
 :------------------------------: | :-------------: | :---------------:
@@ -6,9 +8,7 @@ NAMA                             | NIM             | ID Github
 [Dea Lisriani Safitri Waruwu]    | [121140208]     | Deawaruwu04
 
 
-Judul: Filter Tebak Logo
-
-Deskripsi:
+## Deskripsi:
 Filter Tebak Logo adalah program sederhana berbasis kamera memanfaatkan teknologi deteksi wa-
 jah untuk memprediksi arah wajah pengguna (kiri atau kanan) sebagai input jawaban yang dibuat
 menggunakan Python. Program ini dirancang untuk memilih logo yang benar antara dua opsi. Dalam
@@ -20,8 +20,32 @@ salah dan akan menampilkan skor di akhir permainan. Program ini dibuat untuk men
 memberikan pengalaman unik kepada pengguna dengan melibatkan interaksi langsung melalui gerakan
 wajah. Teknologi utama yang digunakan dalam progam ini adalah OpenCV dan dlib
 
+## Instruksi Instalasi:
+1. Pastikan library berikut sudah terinstall di pyhton anda :
+   - OpenCV (pip install opencv-python dlib)
+2. Siapkan gambar logo yang akan digunakan dalam filter. Buat folder assets di dalam direktori lalu tambahkan gambar logo dengan nama file berikut:
+     - filabenar.JPG
+     - filasalah.JPG
+     - instagrambenar.JPG
+     - instagramsalah.JPG
+     - kfcbenar.JPG
+     - kfcsalah.JPG
+     - mercedesbenar.JPG
+     - mercedessalah.JPG
+     - oreobenar.JPG
+     - oreosalah.JPG
+3. Jalankan script dengan perintah berikut:
+   python script.py
 
-Logbook
+## Cara Bermain
+1. Saat permainan dimulai, dua logo akan muncul di layar (satu benar satu salah) pada posisi atas kiri kanan
+2. Lihat ke kamera dan arahkan wajah/kepala anda ke kiri atau ke kanan untuk memilih logo
+3. Filter akan memberi tahu jika jawaban anda benar atau salah
+4. Permainan berlangsung selama 30 detik dan skor akan ditampilkan di akhir permainan
+
+
+
+## Logbook
 MINGGU KE-                         | KEGIATAN            
 :------------------------------:   | :-------------: 
 Minggu ke-1 (24-30 November 2024)  | Mencari berbagai referensi filter di TikTok    
