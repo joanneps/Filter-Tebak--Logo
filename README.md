@@ -53,3 +53,6 @@ Minggu ke-2 (1-7 Desember 2024)    | Diskusi terkait judul final project + menga
 Minggu ke-3 (8-14 Desember 2024)   | Mengerjakan code program + mencari 'assets' yang diperlukan untuk filter
 Minggu ke-4 (15-21 Desember 2024)  | Mengerjakan code program + mencicil laporan
 Minggu ke-5 (22-24 Desember 2024)  | Melakukan cross ceck program dan laporan + submit final project ke gform pengumpulan
+
+
+Project ini adalah tugas mata kuliah [IF - 4021] Prodi Teknik Informatika yang diampu oleh dosen Martin Clinton Tosima Manullang, S.T., M.T.
